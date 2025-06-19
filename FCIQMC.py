@@ -10,7 +10,7 @@ from tqdm import tqdm
 import matplotlib.pyplot as plt
 from scipy.sparse import dok_matrix
 from scipy.sparse.linalg import eigsh
-from utils import *
+from trash.utils import *
 
 #%%
 class FCIQMCSimulator:
@@ -77,6 +77,7 @@ class FCIQMCSimulator:
                 # Spawning probability using Booth et al. Eq. (15) / (B1)
                 # P_spawn = delta_tau * |H_ji| / p_gen(j|i)
                 prob_spawn = self.delta_tau * abs(H_val) / pgen
+                # print(f"Prob Spawning: {prob_spawn} | |H_val|: {abs(H_val)} | pgen: {pgen}")
 
                 num_spawned_here = 0
                 if prob_spawn > 1.0: 
@@ -229,11 +230,12 @@ class FCIQMCSimulator:
 
 
 #%% =========================  Set Simulation Parameters  =========================
+
 if __name__ == "__main__":
 
     # 1D Hubbard Model Parameters
-    num_sites_val = 4
-    num_electrons_val = 4  # Half-filling for 2 sites
+    num_sites_val = 2
+    num_electrons_val = 2  # Half-filling for 2 sites
     t_hop_val = 1.0
     U_onsite_val = 4.0 # Example
 
@@ -260,7 +262,7 @@ if __name__ == "__main__":
     initial_walkers_sim = 10     # Increased initial walkers
     target_walkers_sim = 1e4    # Reduced target for small system
     max_iters_sim = 3000        # Longer simulation time
-    update_interval_sim = 10    # Slower shift updates
+    update_interval_sim = 20    # Slower shift updates
     damping_sim = 0.1           # Damping factor
 
     print(f"\nStarting FCIQMC simulation for {num_sites_val}-site Hubbard model...")
